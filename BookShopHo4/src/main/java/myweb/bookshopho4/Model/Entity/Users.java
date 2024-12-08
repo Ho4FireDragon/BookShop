@@ -3,6 +3,8 @@ package myweb.bookshopho4.Model.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import myweb.bookshopho4.Enum.Role;
+import myweb.bookshopho4.Enum.Status;
 
 @Getter
 @Setter
@@ -28,17 +30,8 @@ public class Users {
     @Enumerated(EnumType.STRING)  // Store Role as string in database
     private Role role;
 
-    public enum Role {
-        CUSTOMER,
-        ADMIN,
-        STAFF
-    }
-
     @Enumerated(EnumType.STRING)
-    private status userStatus ;
+    private Status userStatus ;
 
-    public enum status {
-        ACTIVE,
-        INACTIVE,
-    }
+
 }
