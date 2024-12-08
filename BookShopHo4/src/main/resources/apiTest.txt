@@ -1,0 +1,14 @@
+POST
+http://localhost:8080/api/v1/manager/newbooks
+{
+    "title": "Spring Boot Guide",
+    "author": "John Doe",
+    "publisher": "TechBooks",
+    "isbn": "1234567890123",
+    "price": 29.99,
+    "stockQuantity": 10,
+    "category": "Programming",
+    "publishDate": "2023-01-01",
+    "description": "A comprehensive guide to Spring Boot.",
+    "coverImageUrl": "http://example.com/springboot.jpg"
+}

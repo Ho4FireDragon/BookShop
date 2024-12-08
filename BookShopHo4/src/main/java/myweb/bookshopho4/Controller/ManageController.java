@@ -1,8 +1,10 @@
 package myweb.bookshopho4.Controller;
 
 import myweb.bookshopho4.Model.DTO.UserDTO;
+import myweb.bookshopho4.Model.Entity.Books;
 import myweb.bookshopho4.Model.Entity.Users;
 import myweb.bookshopho4.Model.Response.ResponseData;
+import myweb.bookshopho4.Service.BookService;
 import myweb.bookshopho4.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,9 @@ public class ManageController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private BookService bookService;
+
 
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
@@ -28,5 +33,15 @@ public class ManageController {
     @PostMapping("/search-email")
     public ResponseEntity<ResponseData<UserDTO>> getUsersByEmail(@RequestBody String email) {
         return userService.findUserByEmail(email);
+    }
+
+    @PostMapping("/newbooks")
+    public ResponseEntity<ResponseData<Books>> AddBook(@RequestBody Books book) {
+        return bookService.AddNewBook(book);
+    }
+
+    @GetMapping("/books")
+    public ResponseEntity<ResponseData<List<Books>>> getAllBooks() {
+        return bookService.getAllBooks();
     }
 }

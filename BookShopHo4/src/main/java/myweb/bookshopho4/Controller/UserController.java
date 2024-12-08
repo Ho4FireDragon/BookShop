@@ -3,7 +3,6 @@ package myweb.bookshopho4.Controller;
 
 import myweb.bookshopho4.Model.DTO.UserDTO;
 import myweb.bookshopho4.Model.Entity.Users;
-import myweb.bookshopho4.Model.Request.CartRequest;
 import myweb.bookshopho4.Model.Request.UserRequest;
 import myweb.bookshopho4.Model.Response.ResponseData;
 import myweb.bookshopho4.Model.Response.StatusAndMessage;
@@ -28,10 +27,10 @@ public class UserController {
         return userService.saveUser(userRequest);
     }
 
-    @PostMapping("/cart/add")
-    public ResponseEntity<ResponseData<UserDTO>> AddCart(@RequestBody CartRequest cartRequest) {
-
-    }
+//    @PostMapping("/cart/add")
+//    public ResponseEntity<ResponseData<UserDTO>> AddCart(@RequestBody CartRequest cartRequest) {
+//
+//    }
 
 
 
