@@ -44,4 +44,14 @@ public class ManageController {
     public ResponseEntity<ResponseData<List<Books>>> getAllBooks() {
         return bookService.getAllBooks();
     }
+
+    @PutMapping("/update-book/{id}")
+    public ResponseEntity<ResponseData<Books>> UpdateBook(@RequestBody Books book, @PathVariable Long id) {
+        return bookService.UpdateBook(id, book);
+    }
+
+    @PutMapping("/delete-book/{id}")
+    public ResponseEntity<ResponseData<Void>> DeleteBook(@PathVariable Long id) {
+        return bookService.DeleteBook(id);
+    }
 }

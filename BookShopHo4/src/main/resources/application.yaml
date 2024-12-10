@@ -1,0 +1,5 @@
+
+jwt:
+  valid-duration: 30 #min
+  refreshable-duration: 30 #min
+  signJWT: "bJAlGYJC+G5iUfD2OQv6u0fWXOeV67Dz0uz+O9BIlgOA1At7QEp/Zh9eqXUUoU+K\n"

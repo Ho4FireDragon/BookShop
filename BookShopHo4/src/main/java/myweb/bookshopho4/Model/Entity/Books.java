@@ -1,13 +1,11 @@
 package myweb.bookshopho4.Model.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import myweb.bookshopho4.Enum.BookStatus;
 
 import java.time.LocalDate;
 
@@ -32,6 +30,9 @@ public class Books {
         private LocalDate publishDate; // Ngày xuất bản
         private String description; // Mô tả chi tiết sách
         private String coverImageUrl; // Link ảnh bìa
+
+        @Enumerated(EnumType.STRING)
+        private BookStatus status;
     }
 
 

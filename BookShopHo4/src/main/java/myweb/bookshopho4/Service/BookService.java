@@ -1,5 +1,6 @@
 package myweb.bookshopho4.Service;
 
+import myweb.bookshopho4.Enum.BookStatus;
 import myweb.bookshopho4.Model.Entity.Books;
 import myweb.bookshopho4.Model.Response.ResponseData;
 import myweb.bookshopho4.Model.Response.StatusAndMessage;
@@ -39,4 +40,54 @@ public class BookService {
         return ResponseEntity.ok(response);
     }
 
+    public ResponseEntity<ResponseData<Books>> UpdateBook(Long id, Books bookDetails) {
+        Books existingBook = bookRepository.findById(id).orElse(null);
+
+        existingBook.setTitle(bookDetails.getTitle());
+        existingBook.setAuthor(bookDetails.getAuthor());
+        existingBook.setPublisher(bookDetails.getPublisher());
+        existingBook.setIsbn(bookDetails.getIsbn());
+        existingBook.setPrice(bookDetails.getPrice());
+        existingBook.setStockQuantity(bookDetails.getStockQuantity());
+        existingBook.setCategory(bookDetails.getCategory());
+        existingBook.setPublishDate(bookDetails.getPublishDate());
+        existingBook.setDescription(bookDetails.getDescription());
+        existingBook.setCoverImageUrl(bookDetails.getCoverImageUrl());
+        existingBook.setStatus(bookDetails.getStatus());
+
+        // Lưu vào cơ sở dữ liệu
+        bookRepository.save(existingBook);
+
+        // Tạo ResponseData
+        ResponseData<Books> response = ResponseData.<Books>builder()
+                .status(StatusAndMessage.SUCCESS.getCode())
+                .message(StatusAndMessage.SUCCESS.getMessage())
+                .data(existingBook)
+                .build();
+
+        return ResponseEntity.ok(response);
+        }
+
+        public ResponseEntity<ResponseData<Void>> DeleteBook(Long id) {
+            Books existingBook = bookRepository.findById(id).orElse(null);
+
+
+            if (existingBook == null) {
+                ResponseData<Void> response = ResponseData.<Void>builder()
+                        .status(StatusAndMessage.NOT_FOUND.getCode())
+                        .message(StatusAndMessage.NOT_FOUND.getMessage())
+                        .data(null)
+                        .build();
+                return ResponseEntity.ok(response);
+            }
+            else {
+                existingBook.setStatus(BookStatus.NOT_AVAILABLE);
+                ResponseData<Void> response = ResponseData.<Void>builder()
+                        .status(StatusAndMessage.SUCCESS.getCode())
+                        .message(StatusAndMessage.SUCCESS.getMessage())
+                        .data(null)
+                        .build();
+                return ResponseEntity.ok(response);
+            }
+        }
 }
