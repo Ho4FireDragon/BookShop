@@ -20,11 +20,16 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn
-    private Users customer; // Khách hàng sở hữu giỏ hàng
+    @ManyToOne
+    @JoinColumn(name = "customer_id") // Tên cột khóa ngoại trong bảng Cart
+    private Users customer; // Một khách hàng có thể sở hữu nhiều giỏ hàng
 
-    @OneToMany(cascade = CascadeType.ALL ,orphanRemoval = true)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "cart_books", // Tên bảng trung gian
+            joinColumns = @JoinColumn(name = "cart_id"), // Khóa ngoại từ bảng Cart
+            inverseJoinColumns = @JoinColumn(name = "book_id") // Khóa ngoại từ bảng Books
+    )
     private List<Books> cartItems; // Danh sách sản phẩm trong giỏ
 
     @Enumerated(EnumType.STRING)

@@ -1,6 +1,7 @@
 package myweb.bookshopho4.Model.DTO;
 
 import lombok.*;
+import myweb.bookshopho4.Enum.Role;
 import myweb.bookshopho4.Enum.Status;
 import myweb.bookshopho4.Model.Entity.Users;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +17,7 @@ public class UserDTO {
     private String phone;
     private String address;
     private Status status;
+    private Role role;
 
     // Static method for mapping from entity to DTO
     public static UserDTO fromEntity(Users user) {
@@ -28,6 +30,7 @@ public class UserDTO {
                 .phone(user.getPhoneNumber())
                 .address(user.getAddress())
                 .status(user.getUserStatus())
+                .role(user.getRole())
                 .build();
     }
 
@@ -42,6 +45,7 @@ public class UserDTO {
         user.setPhoneNumber(userDTO.getPhone());
         user.setAddress(userDTO.getAddress());
         user.setUserStatus(userDTO.getStatus());
+        user.setRole(userDTO.getRole());
         return user;
     }
 }

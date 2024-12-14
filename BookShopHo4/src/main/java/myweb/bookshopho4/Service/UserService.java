@@ -10,6 +10,7 @@ import myweb.bookshopho4.Model.Response.StatusAndMessage;
 import myweb.bookshopho4.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public ResponseEntity<List<UserDTO>> findAllUser() {
         List<Users> users = userRepository.findAll();
@@ -69,7 +73,8 @@ public class UserService {
         else {
             Users newUser = new Users();
             newUser.setUserName(userRequest.getName());
-            newUser.setUserPassword(userRequest.getPassword());
+            newUser.setUserPassword(passwordEncoder.encode(userRequest.getPassword()));
+
             newUser.setEmail(userRequest.getEmail());
             newUser.setAddress(userRequest.getAddress());
             newUser.setPhoneNumber(userRequest.getPhone());
