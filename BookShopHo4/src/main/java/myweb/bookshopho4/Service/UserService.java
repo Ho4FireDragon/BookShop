@@ -2,6 +2,8 @@ package myweb.bookshopho4.Service;
 
 import myweb.bookshopho4.Enum.Role;
 import myweb.bookshopho4.Enum.Status;
+import myweb.bookshopho4.Exception.AppException;
+import myweb.bookshopho4.Exception.ErrorCode;
 import myweb.bookshopho4.Model.DTO.UserDTO;
 import myweb.bookshopho4.Model.Entity.Users;
 import myweb.bookshopho4.Model.Request.UserRequest;
@@ -41,12 +43,7 @@ public class UserService {
     public ResponseEntity<ResponseData<UserDTO>> findUserByEmail(String email) {
         Users user = userRepository.findByEmail(email);
         if (user == null) {
-            ResponseData<UserDTO> responseData = ResponseData.<UserDTO>builder()
-                    .status(StatusAndMessage.NOT_FOUND.getCode())
-                    .message(StatusAndMessage.NOT_FOUND.getMessage())
-                    .data(null)
-                    .build();
-            return ResponseEntity.ok(responseData);
+            throw new AppException(ErrorCode.NOT_FOUND);
         }
         else {
             UserDTO userDTO = UserDTO.fromEntity(user);
@@ -62,12 +59,7 @@ public class UserService {
     public ResponseEntity<ResponseData<UserDTO>> saveUser(UserRequest userRequest) {
 
         if (exsistingUserByEmail(userRequest.getEmail())==true) {
-            ResponseData<UserDTO> responseData = ResponseData.<UserDTO>builder()
-                    .status(StatusAndMessage.EMAIL_EXISTS.getCode())
-                    .message(StatusAndMessage.EMAIL_EXISTS.getMessage())
-                    .data(null)
-                    .build();
-            return ResponseEntity.ok(responseData);
+            throw new AppException(ErrorCode.EMAIL_EXISTS);
         }
 
         else {

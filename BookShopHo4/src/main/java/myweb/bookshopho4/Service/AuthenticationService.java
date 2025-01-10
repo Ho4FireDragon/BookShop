@@ -6,6 +6,8 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.experimental.NonFinal;
+import myweb.bookshopho4.Exception.AppException;
+import myweb.bookshopho4.Exception.ErrorCode;
 import myweb.bookshopho4.Model.DTO.UserDTO;
 import myweb.bookshopho4.Model.Entity.InvalidateToken;
 import myweb.bookshopho4.Model.Entity.Users;
@@ -85,12 +87,7 @@ public class AuthenticationService {
             boolean authenticated = passwordEncoder.matches(loginRequest.getPassword(), userEmail.getUserPassword());
 
             if (!authenticated) {
-                ResponseData<AuthenticationResponse> responseData = ResponseData.<AuthenticationResponse>builder()
-                        .status(StatusAndMessage.UNAUTHENTICATED.getCode())
-                        .message(StatusAndMessage.UNAUTHENTICATED.getMessage())
-                        .data(null)
-                        .build();
-                return ResponseEntity.ok(responseData);
+                throw new AppException(ErrorCode.UNAUTHENTICATED);
             }
             else{
                 var token = generateToken(userEmail);

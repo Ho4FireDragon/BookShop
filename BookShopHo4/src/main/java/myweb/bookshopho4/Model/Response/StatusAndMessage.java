@@ -1,26 +1,26 @@
 package myweb.bookshopho4.Model.Response;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
+
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor(force = true)
 public enum StatusAndMessage {
-    SUCCESS(200, "Success"),
-    BAD_REQUEST(400, "Invalid request"),
-    EMAIL_EXISTS(401, "Email already exists"),
-    NOT_FOUND(404, "Resource not found"),
-    SERVER_ERROR(500, "Internal server error"),
-    UNAUTHORIZED(401, "Unauthorized access"),
-    UNAUTHENTICATED(401, "Wrong password or email"),
-    VALIDTOKEN(402,"Valid token"),
-    INVALIDTOKEN(401,"Invalid token");
+    // Success messages
+    SUCCESS(200, "Success", HttpStatus.OK),
+    VALID_TOKEN(202, "Valid token", HttpStatus.ACCEPTED);
+
 
 
     private final int code;
     private final String message;
+    private final HttpStatus httpStatus;
 
+    StatusAndMessage(int code, String message, HttpStatus httpStatus) {
+        this.code = code;
+        this.message = message;
+        this.httpStatus = httpStatus;
+    }
 }
-

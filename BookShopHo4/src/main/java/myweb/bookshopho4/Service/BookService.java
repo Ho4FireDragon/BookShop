@@ -1,6 +1,8 @@
 package myweb.bookshopho4.Service;
 
 import myweb.bookshopho4.Enum.BookStatus;
+import myweb.bookshopho4.Exception.AppException;
+import myweb.bookshopho4.Exception.ErrorCode;
 import myweb.bookshopho4.Model.Entity.Books;
 import myweb.bookshopho4.Model.Response.ResponseData;
 import myweb.bookshopho4.Model.Response.StatusAndMessage;
@@ -73,12 +75,7 @@ public class BookService {
 
 
             if (existingBook == null) {
-                ResponseData<Void> response = ResponseData.<Void>builder()
-                        .status(StatusAndMessage.NOT_FOUND.getCode())
-                        .message(StatusAndMessage.NOT_FOUND.getMessage())
-                        .data(null)
-                        .build();
-                return ResponseEntity.ok(response);
+                throw new AppException(ErrorCode.NOT_FOUND);
             }
             else {
                 existingBook.setStatus(BookStatus.NOT_AVAILABLE);
